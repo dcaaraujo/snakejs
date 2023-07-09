@@ -9,7 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "p5": "1.6.0"
+    "p5": "1.6.0",
+    "underscore": "1.13.6"
   },
   "devDependencies": {
     "vite": "4.4.0",
