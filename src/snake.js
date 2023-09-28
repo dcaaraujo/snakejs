@@ -2,30 +2,36 @@ import {
   DIR_UP,
   DIR_DOWN,
   DIR_LEFT,
-  DIR_RIGHT
-} from "./constants";
-import { generateSnakeStartPosition } from "./helpers";
+  DIR_RIGHT,
+  ALL_DIRECTIONS,
+} from "./directions";
+import { NUM_COLUMNS, NUM_ROWS, TILE_SIZE } from "./map";
+import { random } from "underscore";
 
-export default class Snake {
+class Snake {
   constructor() {
-    const { x, y, dir } = generateSnakeStartPosition();
+    const { x, y, dir } = randomStartPosition();
     this.posX = x;
     this.posY = y;
     this.dir = dir;
+    this.alive = true;
   }
 
-  get currentPos() {
+  get currentPosition() {
     const { posX, posY } = this;
     return { x: posX, y: posY };
   }
 
   move() {
-    let { x, y } = this.currentPos;
+    if (!this.alive) {
+      return;
+    }
+    let { x, y } = this.currentPosition;
     switch (this.dir) {
       case DIR_LEFT:
         x -= 1;
         break;
-      case DIR_LEFT:
+      case DIR_RIGHT:
         x += 1;
         break;
       case DIR_UP:
@@ -40,24 +46,45 @@ export default class Snake {
   }
 
   changeDir(dir) {
-    if (this._canChangeDir(dir)) {
+    if (this.#canChangeDir(dir)) {
       this.dir = dir;
     }
   }
 
-  _canChangeDir(newDir) {
-    if (this.dir === DIR_LEFT && newDir === DIR_RIGHT) {
-      return false;
+  die() {
+    this.alive = false;
+  }
+
+  #canChangeDir(newDir) {
+    if (this.dir === DIR_LEFT) {
+      return newDir !== DIR_RIGHT;
     }
-    if (this.dir === DIR_RIGHT && newDir === DIR_LEFT) {
-      return false;
+    if (this.dir === DIR_RIGHT) {
+      return newDir !== DIR_LEFT;
     }
-    if (this.dir === DIR_UP && newDir === DIR_DOWN) {
-      return false;
+    if (this.dir === DIR_UP) {
+      return newDir !== DIR_DOWN;
     }
-    if (this.dir === DIR_DOWN && newDir === DIR_UP) {
-      return false;
+    if (this.dir === DIR_DOWN) {
+      return newDir !== DIR_UP;
     }
     return true;
   }
 }
+
+function randomStartPosition() {
+  const dir = ALL_DIRECTIONS[random(ALL_DIRECTIONS.length - 1)];
+  return {
+    x: random(NUM_COLUMNS - 1),
+    y: random(NUM_ROWS - 1),
+    dir: dir,
+  };
+}
+
+function renderSnake(p5, snake) {
+  const { x, y } = snake.currentPosition;
+  p5.fill("green");
+  p5.rect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+}
+
+export { Snake, renderSnake };

@@ -1,24 +1,19 @@
-import Snake from "./snake";
-import {
-  EVENT_LEFT_PRESSED,
-  EVENT_RIGHT_PRESSED,
-  EVENT_UP_PRESSED,
-  EVENT_DOWN_PRESSED,
-  EVENT_TICK,
-  NUM_COLUMNS,
-  NUM_ROWS,
-  TILE_SIZE,
-  DIR_UP,
-  DIR_DOWN,
-  DIR_LEFT,
-  DIR_RIGHT,
-} from "./constants";
-import { renderGrid, renderSnake } from "./helpers";
+import { Snake, renderSnake } from "./snake";
+import { DIR_UP, DIR_DOWN, DIR_LEFT, DIR_RIGHT } from "./directions";
+import { NUM_COLUMNS, NUM_ROWS, TILE_SIZE, Map } from "./map";
+
+const EVENT_LEFT_PRESSED = "left_pressed";
+const EVENT_RIGHT_PRESSED = "right_pressed";
+const EVENT_UP_PRESSED = "up_pressed";
+const EVENT_DOWN_PRESSED = "down_pressed";
+const EVENT_TICK = "tick";
+const EVENT_SNAKE_HIT_WALL = "hit_wall";
 
 class Game {
   constructor() {
     this.running = true;
     this.snake = new Snake();
+    this.map = new Map();
   }
 
   sendEvent(event) {
@@ -36,7 +31,14 @@ class Game {
         this.snake.changeDir(DIR_RIGHT);
         break;
       case EVENT_TICK:
-        this.snake.move();
+        if (this.map.hasWallAt(this.snake.currentPosition)) {
+          this.sendEvent(EVENT_SNAKE_HIT_WALL);
+        } else {
+          this.snake.move();
+        }
+        break;
+      case EVENT_SNAKE_HIT_WALL:
+        this.snake.die();
         break;
     }
   }
@@ -49,9 +51,7 @@ export default function runGame(p5) {
     const canvasWidth = TILE_SIZE * NUM_COLUMNS;
     const canvasHeight = TILE_SIZE * NUM_ROWS;
     p5.createCanvas(canvasWidth, canvasHeight);
-    setInterval(() => {
-      game.sendEvent(EVENT_TICK);
-    }, 800);
+    setInterval(() => game.sendEvent(EVENT_TICK), 800);
   };
 
   p5.draw = function () {
@@ -77,4 +77,13 @@ export default function runGame(p5) {
         break;
     }
   };
+}
+
+function renderGrid(p5) {
+  p5.noFill();
+  for (let x = 0; x < NUM_COLUMNS; x++) {
+    for (let y = 0; y < NUM_ROWS; y++) {
+      p5.rect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+    }
+  }
 }
