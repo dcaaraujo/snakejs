@@ -1,20 +1,16 @@
 {
   "name": "snakejs",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "fmt": "prettier --write ./src index.js index.html style.css"
-  },
-  "dependencies": {
-    "p5": "1.9.0",
-    "underscore": "1.13.6"
+    "fmt": "prettier --write index.html style.css main.js ./src/"
   },
   "devDependencies": {
-    "vite": "5.0.6",
-    "prettier": "3.1.0"
+    "prettier": "^3.2.5",
+    "vite": "^5.2.0"
   }
 }
