@@ -1,8 +1,14 @@
 import { NUM_COLUMNS, NUM_ROWS } from "./map";
 
+const DIR_UP = "DIR_UP";
+const DIR_DOWN = "DIR_DOWN";
+const DIR_LEFT = "DIR_LEFT";
+const DIR_RIGHT = "DIR_RIGHT";
+
 class Snake {
   constructor(startX, startY) {
     this.parts = [{ x: startX, y: startY }];
+    this.faceUp();
   }
 
   get head() {
@@ -25,24 +31,75 @@ class Snake {
     return this.head.x + 1 < NUM_COLUMNS;
   }
 
-  moveUp() {
-    this.head.y -= 1;
+  get facingUp() {
+    return this.direction === DIR_UP;
   }
 
-  moveDown() {
-    this.head.y += 1;
+  get facingDown() {
+    return this.direction === DIR_DOWN;
   }
 
-  moveLeft() {
-    this.head.x -= 1;
+  get facingLeft() {
+    return this.direction === DIR_LEFT;
   }
 
-  moveRight() {
-    this.head.x += 1;
+  get facingRight() {
+    return this.direction === DIR_RIGHT;
+  }
+
+  faceUp() {
+    this.direction = DIR_UP;
+  }
+
+  faceDown() {
+    this.direction = DIR_DOWN;
+  }
+
+  faceLeft() {
+    this.direction = DIR_LEFT;
+  }
+
+  faceRight() {
+    this.direction = DIR_RIGHT;
+  }
+
+  move() {
+    switch (this.direction) {
+      case DIR_UP:
+        this.#moveUp();
+        break;
+      case DIR_DOWN:
+        this.#moveDown();
+        break;
+      case DIR_LEFT:
+        this.#moveLeft();
+        break;
+      case DIR_RIGHT:
+        this.#moveRight();
+        break;
+      default:
+        break;
+    }
   }
 
   atPosition(x, y) {
     return this.head.x === x && this.head.y === y;
+  }
+
+  #moveUp() {
+    this.head.y -= 1;
+  }
+
+  #moveDown() {
+    this.head.y += 1;
+  }
+
+  #moveLeft() {
+    this.head.x -= 1;
+  }
+
+  #moveRight() {
+    this.head.x += 1;
   }
 }
 

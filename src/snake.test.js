@@ -19,24 +19,28 @@ test("Snake is at position", () => {
 
 test("Snake moves up", () => {
   const snake = new Snake(1, 3);
-  snake.moveUp();
+  snake.faceUp();
+  snake.move();
   expect(snake.atPosition(0, 3)).toBeTruthy;
 });
 
 test("Snake moves down", () => {
   const snake = new Snake(1, 3);
-  snake.moveDown();
+  snake.faceDown();
+  snake.move();
   expect(snake.atPosition(2, 3)).toBeTruthy;
 });
 
 test("Snake moves down", () => {
   const snake = new Snake(1, 3);
-  snake.moveLeft();
+  snake.faceLeft();
+  snake.move();
   expect(snake.atPosition(1, 2)).toBeTruthy;
 });
 
 test("Snake moves down", () => {
   const snake = new Snake(1, 3);
-  snake.moveRight();
+  snake.faceRight();
+  snake.move();
   expect(snake.atPosition(1, 4)).toBeTruthy;
 });

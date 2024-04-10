@@ -12,6 +12,8 @@ if (!canvas.getContext) {
 }
 
 const context = canvas.getContext("2d");
-const game = new SnakeGame(context);
+const game = new SnakeGame(context, (points) => {
+  document.getElementById("points").innerText = `Points: ${points}`;
+});
 window.addEventListener("keydown", (e) => game.onKeyPressed(e));
 game.start();
