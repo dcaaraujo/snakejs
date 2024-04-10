@@ -15,9 +15,9 @@ class Food {
   }
 }
 
-function getFoodAtRandomPosition() {
+function getNewFoodAtRandomPosition() {
   const { x, y } = getRandomPosition();
   return new Food(x, y);
 }
 
-export { Food, getFoodAtRandomPosition };
+export { Food, getNewFoodAtRandomPosition };

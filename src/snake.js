@@ -1,4 +1,4 @@
-import { NUM_COLUMNS, NUM_ROWS } from "./map";
+import { NUM_COLUMNS, NUM_ROWS, getRandomPosition } from "./map";
 
 const DIR_UP = "DIR_UP";
 const DIR_DOWN = "DIR_DOWN";
@@ -103,4 +103,9 @@ class Snake {
   }
 }
 
-export { Snake };
+function getNewSnakeAtRandomPosition() {
+  const { x, y } = getRandomPosition();
+  return new Snake(x, y);
+}
+
+export { Snake, getNewSnakeAtRandomPosition };
