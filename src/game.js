@@ -1,6 +1,9 @@
 import { Snake } from "./snake";
 import { renderGrid } from "./render";
 import { getRandomPosition } from "./map";
+import { getFoodAtRandomPosition } from "./food";
+
+const TICK_INTERVAL = 500;
 
 class SnakeGame {
   constructor(canvas) {
@@ -10,7 +13,8 @@ class SnakeGame {
   start() {
     const snakeStart = getRandomPosition();
     this.snake = new Snake(snakeStart.x, snakeStart.y);
-    this.ticker = setInterval(() => this.tick(), 500);
+    this.ticker = setInterval(() => this.tick(), TICK_INTERVAL);
+    this.food = getFoodAtRandomPosition();
   }
 
   onKeyPressed(event) {
@@ -41,7 +45,7 @@ class SnakeGame {
   }
 
   tick() {
-    renderGrid(this.canvas, this.snake);
+    renderGrid(this.canvas, this.snake, this.food);
   }
 }
 

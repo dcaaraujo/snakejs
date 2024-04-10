@@ -7,10 +7,12 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "test": "vitest",
     "fmt": "prettier --write index.html style.css main.js ./src/"
   },
   "devDependencies": {
     "prettier": "^3.2.5",
-    "vite": "^5.2.0"
+    "vite": "^5.2.0",
+    "vitest": "^1.4.0"
   }
 }
