@@ -1,17 +1,21 @@
 import { getNewSnakeAtRandomPosition } from "./snake";
-import { renderGrid } from "./render";
+import { clearGrid, renderGrid } from "./render";
 import { getNewFoodAtRandomPosition } from "./food";
 
 const TICK_INTERVAL = 800;
 
-class SnakeGame {
+export class SnakeGame {
   constructor(canvas, pointsObserver) {
     this.canvas = canvas;
     this.pointsObserver = pointsObserver;
   }
 
   start() {
+    clearGrid(this.canvas);
     this.snake = getNewSnakeAtRandomPosition();
+    if (this.ticker) {
+      clearInterval(this.ticker);
+    }
     this.ticker = setInterval(() => this.#tick(), TICK_INTERVAL);
     this.totalPoints = 0;
     this.food = getNewFoodAtRandomPosition();
@@ -58,5 +62,3 @@ class SnakeGame {
     this.pointsObserver(this.totalPoints);
   }
 }
-
-export { SnakeGame };

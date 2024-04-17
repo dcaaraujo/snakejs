@@ -1,6 +1,6 @@
 import { getRandomPosition } from "./map";
 
-class Food {
+export class Food {
   constructor(x, y) {
     this.x = x;
     this.y = y;
@@ -15,9 +15,7 @@ class Food {
   }
 }
 
-function getNewFoodAtRandomPosition() {
+export function getNewFoodAtRandomPosition() {
   const { x, y } = getRandomPosition();
   return new Food(x, y);
 }
-
-export { Food, getNewFoodAtRandomPosition };

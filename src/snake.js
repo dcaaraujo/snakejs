@@ -5,10 +5,10 @@ const DIR_DOWN = "DIR_DOWN";
 const DIR_LEFT = "DIR_LEFT";
 const DIR_RIGHT = "DIR_RIGHT";
 
-class Snake {
-  constructor(startX, startY) {
-    this.parts = [{ x: startX, y: startY }];
-    this.faceUp();
+export class Snake {
+  constructor(x, y) {
+    this.parts = [{ x, y }];
+    this.faceRight();
   }
 
   get head() {
@@ -103,9 +103,7 @@ class Snake {
   }
 }
 
-function getNewSnakeAtRandomPosition() {
+export function getNewSnakeAtRandomPosition() {
   const { x, y } = getRandomPosition();
   return new Snake(x, y);
 }
-
-export { Snake, getNewSnakeAtRandomPosition };

@@ -3,3 +3,7 @@
   align-items: center;
   justify-content: center;
 }
+
+#game-info {
+  padding: 1rem;
+}
