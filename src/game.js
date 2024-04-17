@@ -25,37 +25,37 @@ export class SnakeGame {
   }
 
   moveUp() {
-    if (this.snake.facingLeft || this.snake.facingRight) {
+    if (this.snake.isFacingLeft || this.snake.isFacingRight) {
       this.snake.faceUp();
     }
   }
 
   moveDown() {
-    if (this.snake.facingLeft || this.snake.facingRight) {
+    if (this.snake.isFacingLeft || this.snake.isFacingRight) {
       this.snake.faceDown();
     }
   }
 
   moveLeft() {
-    if (this.snake.facingUp || this.snake.facingDown) {
+    if (this.snake.isFacingUp || this.snake.isFacingDown) {
       this.snake.faceLeft();
     }
   }
 
   moveRight() {
-    if (this.snake.facingUp || this.snake.facingDown) {
+    if (this.snake.isFacingUp || this.snake.isFacingDown) {
       this.snake.faceRight();
     }
   }
 
   #tick() {
     this.snake.move();
-    if (this.snake.atPosition(this.food)) {
+    if (this.snake.headAtPosition(this.food)) {
       this.#updatePoints();
       this.snake.stretch();
       this.food = getNewFoodAtRandomPosition();
     }
-    if (willHitWallAt(this.snake.head)) {
+    if (willHitWallAt(this.snake.head) || this.snake.isEatingItself) {
       this.#endGame();
     }
     renderGrid(this.canvas, this.snake, this.food);

@@ -19,20 +19,29 @@ export class Snake {
     return this.parts.at(-1);
   }
 
-  get facingUp() {
+  get isFacingUp() {
     return this.direction === DIR_UP;
   }
 
-  get facingDown() {
+  get isFacingDown() {
     return this.direction === DIR_DOWN;
   }
 
-  get facingLeft() {
+  get isFacingLeft() {
     return this.direction === DIR_LEFT;
   }
 
-  get facingRight() {
+  get isFacingRight() {
     return this.direction === DIR_RIGHT;
+  }
+
+  get isEatingItself() {
+    for (let i = 1; i < this.parts.length; i++) {
+      if (this.headAtPosition(this.parts[i])) {
+        return true;
+      }
+    }
+    return false;
   }
 
   faceUp() {
@@ -78,7 +87,7 @@ export class Snake {
     }
   }
 
-  atPosition({ x, y }) {
+  headAtPosition({ x, y }) {
     return this.head.x === x && this.head.y === y;
   }
 

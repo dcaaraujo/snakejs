@@ -16,44 +16,44 @@ describe("snake", () => {
   it("facing up", () => {
     const snake = new Snake(1, 3);
     snake.faceUp();
-    expect(snake.facingUp).is.true;
-    expect(snake.facingDown).is.false;
-    expect(snake.facingLeft).is.false;
-    expect(snake.facingRight).is.false;
+    expect(snake.isFacingUp).is.true;
+    expect(snake.isFacingDown).is.false;
+    expect(snake.isFacingLeft).is.false;
+    expect(snake.isFacingRight).is.false;
   });
 
   it("facing down", () => {
     const snake = new Snake(1, 3);
     snake.faceDown();
-    expect(snake.facingUp).is.false;
-    expect(snake.facingDown).is.true;
-    expect(snake.facingLeft).is.false;
-    expect(snake.facingRight).is.false;
+    expect(snake.isFacingUp).is.false;
+    expect(snake.isFacingDown).is.true;
+    expect(snake.isFacingLeft).is.false;
+    expect(snake.isFacingRight).is.false;
   });
 
   it("facing left", () => {
     const snake = new Snake(1, 3);
     snake.faceLeft();
-    expect(snake.facingUp).is.false;
-    expect(snake.facingDown).is.false;
-    expect(snake.facingLeft).is.true;
-    expect(snake.facingRight).is.false;
+    expect(snake.isFacingUp).is.false;
+    expect(snake.isFacingDown).is.false;
+    expect(snake.isFacingLeft).is.true;
+    expect(snake.isFacingRight).is.false;
   });
 
   it("facing left", () => {
     const snake = new Snake(1, 3);
     snake.faceRight();
-    expect(snake.facingUp).is.false;
-    expect(snake.facingDown).is.false;
-    expect(snake.facingLeft).is.false;
-    expect(snake.facingRight).is.true;
+    expect(snake.isFacingUp).is.false;
+    expect(snake.isFacingDown).is.false;
+    expect(snake.isFacingLeft).is.false;
+    expect(snake.isFacingRight).is.true;
   });
 
   it("moves up", () => {
     const snake = new Snake(1, 3);
     snake.faceUp();
     snake.move();
-    const atPosition = snake.atPosition({ x: 1, y: 2 });
+    const atPosition = snake.headAtPosition({ x: 1, y: 2 });
     expect(atPosition).to.be.true;
   });
 
@@ -61,7 +61,7 @@ describe("snake", () => {
     const snake = new Snake(1, 3);
     snake.faceDown();
     snake.move();
-    const atPosition = snake.atPosition({ x: 1, y: 4 });
+    const atPosition = snake.headAtPosition({ x: 1, y: 4 });
     expect(atPosition).to.be.true;
   });
 
@@ -69,7 +69,7 @@ describe("snake", () => {
     const snake = new Snake(1, 3);
     snake.faceLeft();
     snake.move();
-    const atPosition = snake.atPosition({ x: 0, y: 3 });
+    const atPosition = snake.headAtPosition({ x: 0, y: 3 });
     expect(atPosition).to.be.true;
   });
 
@@ -77,7 +77,23 @@ describe("snake", () => {
     const snake = new Snake(1, 3);
     snake.faceRight();
     snake.move();
-    const atPosition = snake.atPosition({ x: 2, y: 3 });
+    const atPosition = snake.headAtPosition({ x: 2, y: 3 });
     expect(atPosition).to.be.true;
+  });
+
+  it("eats itself", () => {
+    const snake = new Snake(1, 3);
+    snake.faceUp();
+    for (let i = 0; i < 5; i++) {
+      snake.stretch();
+    }
+    snake.move();
+    snake.faceRight();
+    snake.move();
+    snake.faceDown();
+    snake.move();
+    snake.faceLeft();
+    snake.move();
+    expect(snake.isEatingItself).to.be.true;
   });
 });
