@@ -7,4 +7,9 @@ describe("food", () => {
     const atPosition = food.atPosition({ x: 1, y: 2 });
     expect(atPosition).to.be.true;
   });
+
+  it("points", () => {
+    const food = new Food(1, 2);
+    expect(food.points).to.equal(1);
+  })
 });
