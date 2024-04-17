@@ -15,22 +15,6 @@ export class Snake {
     return this.parts[0];
   }
 
-  canMoveUp() {
-    return this.head.y - 1 >= 0;
-  }
-
-  canMoveDown() {
-    return this.head.y + 1 < NUM_ROWS;
-  }
-
-  canMoveLeft() {
-    return this.head.x - 1 >= 0;
-  }
-
-  canMoveRight() {
-    return this.head.x + 1 < NUM_COLUMNS;
-  }
-
   get facingUp() {
     return this.direction === DIR_UP;
   }
@@ -82,7 +66,7 @@ export class Snake {
     }
   }
 
-  atPosition(x, y) {
+  atPosition({ x, y }) {
     return this.head.x === x && this.head.y === y;
   }
 

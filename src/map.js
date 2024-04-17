@@ -9,3 +9,11 @@ export function getRandomPosition() {
   const y = getRandomInt(0, NUM_ROWS);
   return { x, y };
 }
+
+export function willHitWallAt({ x, y }) {
+  const hitNorthWall = y < 0;
+  const hitSouthWall = y >= NUM_ROWS;
+  const hitEastWall = x < 0;
+  const hitWestWall = x >= NUM_COLUMNS;
+  return hitNorthWall || hitSouthWall || hitEastWall || hitWestWall;
+}

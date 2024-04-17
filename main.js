@@ -13,9 +13,14 @@ if (!canvas.getContext) {
 }
 
 const context = canvas.getContext("2d");
-const game = new SnakeGame(context, (points) => {
-  document.getElementById("points").innerText = `Points: ${points}`;
+const game = new SnakeGame(context, {
+  onPointsUpdated(points) {
+    document.getElementById("points").innerText = `Points: ${points}`;
+  },
+  onGameEnded() {
+    alert("Game Over!");
+  }
 });
-resetButton.onclick = () => game.start();
+resetButton.onclick = () => game.reset();
 window.addEventListener("keydown", (e) => game.onKeyPressed(e));
 game.start();
