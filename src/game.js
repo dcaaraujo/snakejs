@@ -52,6 +52,7 @@ export class SnakeGame {
     this.snake.move();
     if (this.snake.atPosition(this.food)) {
       this.#updatePoints();
+      this.snake.stretch(this.food);
       this.food = getNewFoodAtRandomPosition();
     }
     if (willHitWallAt(this.snake.head)) {

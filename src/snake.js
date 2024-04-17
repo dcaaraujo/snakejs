@@ -66,24 +66,49 @@ export class Snake {
     }
   }
 
+  stretch({ x, y }) {
+    this.parts.push({ x, y });
+  }
+
   atPosition({ x, y }) {
     return this.head.x === x && this.head.y === y;
   }
 
+  hasPartAt({x, y}) {
+    for (const part of this.parts) {
+      if (part.x === x && part.y === y) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   #moveUp() {
-    this.head.y -= 1;
+    this.#moveSnakeBody();
+    this.parts[0].y -= 1;
   }
 
   #moveDown() {
-    this.head.y += 1;
+    this.#moveSnakeBody();
+    this.parts[0].y += 1;
   }
 
   #moveLeft() {
-    this.head.x -= 1;
+    this.#moveSnakeBody();
+    this.parts[0].x -= 1;
   }
 
   #moveRight() {
-    this.head.x += 1;
+    this.#moveSnakeBody();
+    this.parts[0].x += 1;
+  }
+
+  #moveSnakeBody() {
+    for (let i = this.parts.length - 1; i > 0; i--) {
+      const prev = this.parts[i - 1];
+      this.parts[i].x = prev.x;
+      this.parts[i].y = prev.y;
+    }
   }
 }
 
