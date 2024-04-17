@@ -53,31 +53,31 @@ describe("snake", () => {
     const snake = new Snake(1, 3);
     snake.faceUp();
     snake.move();
-    const atCorrectPosition = snake.atPosition({ x: 1, y: 2 });
-    expect(atCorrectPosition).to.be.true;
+    const atPosition = snake.atPosition({ x: 1, y: 2 });
+    expect(atPosition).to.be.true;
   });
 
   it("moves down", () => {
     const snake = new Snake(1, 3);
     snake.faceDown();
     snake.move();
-    const atCorrectPosition = snake.atPosition({ x: 1, y: 4 });
-    expect(atCorrectPosition).to.be.true;
+    const atPosition = snake.atPosition({ x: 1, y: 4 });
+    expect(atPosition).to.be.true;
   });
 
   it("moves left", () => {
     const snake = new Snake(1, 3);
     snake.faceLeft();
     snake.move();
-    const atCorrectPosition = snake.atPosition({ x: 0, y: 3 });
-    expect(atCorrectPosition).to.be.true;
+    const atPosition = snake.atPosition({ x: 0, y: 3 });
+    expect(atPosition).to.be.true;
   });
 
   it("moves right", () => {
     const snake = new Snake(1, 3);
     snake.faceRight();
     snake.move();
-    const atCorrectPosition = snake.atPosition({ x: 2, y: 3 });
-    expect(atCorrectPosition).to.be.true;
+    const atPosition = snake.atPosition({ x: 2, y: 3 });
+    expect(atPosition).to.be.true;
   });
 });

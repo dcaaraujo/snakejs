@@ -6,7 +6,7 @@ export class Food {
     this.y = y;
   }
 
-  atPosition(x, y) {
+  atPosition({ x, y }) {
     return this.x === x && this.y === y;
   }
 

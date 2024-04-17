@@ -19,8 +19,27 @@ const game = new SnakeGame(context, {
   },
   onGameEnded() {
     alert("Game Over!");
-  }
+  },
 });
 resetButton.onclick = () => game.reset();
-window.addEventListener("keydown", (e) => game.onKeyPressed(e));
+window.addEventListener("keydown", onKeyPressed);
 game.start();
+
+function onKeyPressed(e) {
+  switch (e.key) {
+    case "ArrowUp":
+      game.moveUp();
+      break;
+    case "ArrowDown":
+      game.moveDown();
+      break;
+    case "ArrowLeft":
+      game.moveLeft();
+      break;
+    case "ArrowRight":
+      game.moveRight();
+      break;
+    default:
+      break;
+  }
+}

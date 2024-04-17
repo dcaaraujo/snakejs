@@ -11,9 +11,9 @@ export function renderGrid(canvas, snake, food) {
     for (let y = 0; y < NUM_ROWS; y++) {
       clearTile(canvas, x, y);
 
-      if (snake.atPosition({x, y})) {
+      if (snake.atPosition({ x, y })) {
         renderSnake(canvas, x, y);
-      } else if (food.atPosition(x, y)) {
+      } else if (food.atPosition({ x, y })) {
         renderFood(canvas, x, y);
       } else {
         renderEmptyTile(canvas, x, y);
