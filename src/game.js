@@ -3,7 +3,7 @@ import { clearGrid, renderGrid } from "./render";
 import { getNewFoodAtRandomPosition } from "./food";
 import { willHitWallAt } from "./map";
 
-const TICK_INTERVAL = 800;
+const TICK_INTERVAL = 400;
 
 export class SnakeGame {
   constructor(canvas, delegate) {
@@ -52,7 +52,7 @@ export class SnakeGame {
     this.snake.move();
     if (this.snake.atPosition(this.food)) {
       this.#updatePoints();
-      this.snake.stretch(this.food);
+      this.snake.stretch();
       this.food = getNewFoodAtRandomPosition();
     }
     if (willHitWallAt(this.snake.head)) {

@@ -12,7 +12,11 @@ export class Snake {
   }
 
   get head() {
-    return this.parts[0];
+    return this.parts.at(0);
+  }
+
+  get tail() {
+    return this.parts.at(-1);
   }
 
   get facingUp() {
@@ -66,15 +70,19 @@ export class Snake {
     }
   }
 
-  stretch({ x, y }) {
-    this.parts.push({ x, y });
+  stretch() {
+    if (this.parts.length > 1) {
+      this.#addNewPartBasedOnTailPosition();
+    } else {
+      this.#addNewPartBasedOnDirection();
+    }
   }
 
   atPosition({ x, y }) {
     return this.head.x === x && this.head.y === y;
   }
 
-  hasPartAt({x, y}) {
+  hasPartAt({ x, y }) {
     for (const part of this.parts) {
       if (part.x === x && part.y === y) {
         return true;
@@ -85,22 +93,22 @@ export class Snake {
 
   #moveUp() {
     this.#moveSnakeBody();
-    this.parts[0].y -= 1;
+    this.head.y -= 1;
   }
 
   #moveDown() {
     this.#moveSnakeBody();
-    this.parts[0].y += 1;
+    this.head.y += 1;
   }
 
   #moveLeft() {
     this.#moveSnakeBody();
-    this.parts[0].x -= 1;
+    this.head.x -= 1;
   }
 
   #moveRight() {
     this.#moveSnakeBody();
-    this.parts[0].x += 1;
+    this.head.x += 1;
   }
 
   #moveSnakeBody() {
@@ -109,6 +117,41 @@ export class Snake {
       this.parts[i].x = prev.x;
       this.parts[i].y = prev.y;
     }
+  }
+
+  #addNewPartBasedOnTailPosition() {
+    const newPart = { ...this.tail };
+    const secondLastPart = this.parts.at(-2);
+    const xDiff = newPart.x - secondLastPart.x;
+    const yDiff = newPart.y - secondLastPart.y;
+    if (Math.abs(xDiff) === 1) {
+      newPart.x += xDiff;
+    }
+    if (Math.abs(yDiff) === 1) {
+      newPart.y += yDiff;
+    }
+    this.parts.push(newPart);
+  }
+
+  #addNewPartBasedOnDirection() {
+    const newPart = { ...this.tail };
+    switch (this.direction) {
+      case DIR_UP:
+        newPart.y += 1;
+        break;
+      case DIR_DOWN:
+        newPart.y -= 1;
+        break;
+      case DIR_LEFT:
+        newPart.x += 1;
+        break;
+      case DIR_RIGHT:
+        newPart.x -= 1;
+        break;
+      default:
+        break;
+    }
+    this.parts.push(newPart);
   }
 }
 

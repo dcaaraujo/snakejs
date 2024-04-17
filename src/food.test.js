@@ -11,5 +11,5 @@ describe("food", () => {
   it("points", () => {
     const food = new Food(1, 2);
     expect(food.points).to.equal(1);
-  })
+  });
 });
