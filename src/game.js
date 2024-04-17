@@ -16,7 +16,7 @@ export class SnakeGame {
     this.snake = getNewSnakeAtRandomPosition();
     this.ticker = setInterval(() => this.#tick(), TICK_INTERVAL);
     this.totalPoints = 0;
-    this.food = getNewFoodAtRandomPosition();
+    this.#spawnFood();
   }
 
   reset() {
@@ -53,12 +53,16 @@ export class SnakeGame {
     if (this.snake.headAtPosition(this.food)) {
       this.#updatePoints();
       this.snake.stretch();
-      this.food = getNewFoodAtRandomPosition();
+      this.#spawnFood();
     }
     if (willHitWallAt(this.snake.head) || this.snake.isEatingItself) {
       this.#endGame();
     }
     renderGrid(this.canvas, this.snake, this.food);
+  }
+
+  #spawnFood() {
+    this.food = getNewFoodAtRandomPosition((p) => !this.snake.hasPartAt(p));
   }
 
   #updatePoints() {

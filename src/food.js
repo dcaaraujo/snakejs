@@ -15,7 +15,10 @@ export class Food {
   }
 }
 
-export function getNewFoodAtRandomPosition() {
-  const { x, y } = getRandomPosition();
-  return new Food(x, y);
+export function getNewFoodAtRandomPosition(validator) {
+  let position = getRandomPosition();
+  while (!validator(position)) {
+    position = getRandomPosition();
+  }
+  return new Food(position.x, position.y);
 }
